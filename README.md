@@ -4,15 +4,25 @@ To be described
 
 ## 🚀 Tech Stack
 
-- **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
+### Frontend
+
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router) with React 19
 - **Language:** TypeScript (Strict mode)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [HeroUI](https://heroui.com/)
 - **State Management:**
-  - Database: [RxDB](https://rxdb.info/) (Local-first reactive database)
+  - Database: [RxDB](https://rxdb.info/) (Local-first reactive database with key compression)
   - Client/UI: [Zustand](https://docs.pmnd.rs/zustand)
+- **Package Manager:** [Bun](https://bun.sh/)
+- **Code Quality:** Prettier + Husky + lint-staged
 - **Internationalization:** [i18next](https://www.i18next.com/)
 - **Mocking:** [MSW (Mock Service Worker)](https://mswjs.io/)
 - **Real-time:** Native WebSockets
+
+### Backend (Future)
+
+- **Backend** with **gRPC** services
+- **Protocol Buffers** for data serialization
+- Next.js API routes act as gRPC → REST gateway
 
 ## 📂 Architecture
 
@@ -48,9 +58,26 @@ Supported languages:
 
 Translations are located in `public/locales/{lang}/{ns}.json`.
 
+## 🗄️ Local-First Architecture
+
+This project uses a **local-first** approach with RxDB:
+
+- **Offline-first**: Data is stored locally in IndexedDB with key compression (~40% size reduction)
+- **Reactive**: UI automatically updates when data changes via RxDB subscriptions
+- **Fast**: Instant reads from local storage, background sync with API
+- **Resilient**: Works offline, syncs when connection is restored
+
+### Data Flow
+
+```
+Browser → RxDB (Local Cache) → Next.js API Routes → gRPC (Future) → Backend
+```
+
 ## 🧞‍♂️ Mocking (MSW)
 
-API mocking is enabled in development mode. Handlers are defined in `src/mocks/handlers.ts`.
+API mocking is enabled in development mode. MSW intercepts HTTP requests to `/api/*` endpoints, allowing full-stack development without a backend.
+
+Handlers are defined in `src/mocks/handlers.ts`.
 
 ## 🚦 Getting Started
 
@@ -76,6 +103,14 @@ API mocking is enabled in development mode. Handlers are defined in `src/mocks/h
    ```bash
    bun run build
    ```
+
+## 🎯 Project Rules
+
+- **State Management**: Use RxDB for data, Zustand for UI state
+- **Package Manager**: Use Bun exclusively (no npm/yarn)
+- **Code Style**: Prettier enforced via pre-commit hooks
+
+See `docs/ARCHITECTURE.md` for complete guidelines.
 
 ## 🔌 WebSockets
 
