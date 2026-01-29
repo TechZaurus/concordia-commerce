@@ -1,18 +1,21 @@
 'use client';
 
-import { Button as HeroButton, ButtonProps as HeroButtonProps } from "@heroui/react";
-import { forwardRef } from "react";
+import {
+  Button as HeroButton,
+  ButtonProps as HeroButtonProps,
+} from '@heroui/react';
+import type { Ref } from 'react';
 
 export interface ButtonProps extends HeroButtonProps {
-  // Add custom props here if needed in the future
+  ref?: Ref<HTMLButtonElement>;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+export const Button = ({ ref, ...props }: ButtonProps) => {
   return (
     <HeroButton ref={ref} {...props}>
       {props.children}
     </HeroButton>
   );
-});
+};
 
-Button.displayName = "Button";
+Button.displayName = 'Button';

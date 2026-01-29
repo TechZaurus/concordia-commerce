@@ -29,5 +29,5 @@ export function RxDBProvider({ children }: RxDBProviderProps) {
     return <div>Initializing database...</div>;
   }
 
-  return <RxDBContext.Provider value={db}>{children}</RxDBContext.Provider>;
+  return <RxDBContext value={db}>{children}</RxDBContext>;
 }

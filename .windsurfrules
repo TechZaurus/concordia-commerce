@@ -101,12 +101,43 @@ RxDB (Local Cache)
 - Keep mock data realistic and consistent
 - Environment variables should be documented in .env.example
 
+## React 19 Rules
+
+### React Compiler
+- React Compiler is enabled in `next.config.ts`
+- DO NOT use `useMemo`, `useCallback`, or `React.memo` manually - the compiler handles memoization automatically
+- Trust the compiler to optimize re-renders
+- Only use manual memoization if you have a proven performance issue that the compiler doesn't handle
+
+### Ref Handling
+- NEVER use `forwardRef` - it's deprecated in React 19
+- Pass `ref` as a regular prop: `({ ref, ...props }: Props & { ref?: Ref<HTMLElement> })`
+- Example: `export const Button = ({ ref, ...props }: ButtonProps & { ref?: Ref<HTMLButtonElement> }) => ...`
+
+### Context API
+- NEVER use `<Context.Provider>` - use `<Context>` directly
+- Example: `<MyContext value={value}>{children}</MyContext>` ✅
+- Wrong: `<MyContext.Provider value={value}>{children}</MyContext.Provider>` ❌
+
+### Server Actions & Forms (Future)
+- Use Server Actions for form submissions instead of API routes when possible
+- Use `useActionState` for managing form state (pending, errors, success)
+- Use `useFormStatus` for granular loading states in submit buttons
+- Use `useOptimistic` for immediate UI updates before server confirmation
+- Keep actions in `src/features/{feature}/actions/` directory
+
+### The `use` API
+- Use `use()` hook to read Context or Promises during render
+- Can be called conditionally (unlike other hooks)
+- Useful for Suspense-based data fetching
+- Example: `const data = use(dataPromise);`
+
 ## Performance Rules
 
 ### React Optimization
-- Use React.memo for expensive components
 - Avoid unnecessary re-renders in RxDB subscriptions
 - Use proper dependency arrays in useEffect
+- Let React Compiler handle memoization automatically
 
 ### Bundle Size
 - Import only what you need from libraries

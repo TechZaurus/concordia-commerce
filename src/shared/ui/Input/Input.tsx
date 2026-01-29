@@ -1,16 +1,17 @@
 'use client';
 
-import { Input as HeroInput, InputProps as HeroInputProps } from "@heroui/react";
-import { forwardRef } from "react";
+import {
+  Input as HeroInput,
+  InputProps as HeroInputProps,
+} from '@heroui/react';
+import type { Ref } from 'react';
 
 export interface InputProps extends HeroInputProps {
-  // Add custom props here if needed in the future
+  ref?: Ref<HTMLInputElement>;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  return (
-    <HeroInput ref={ref} {...props} />
-  );
-});
+export const Input = ({ ref, ...props }: InputProps) => {
+  return <HeroInput ref={ref} {...props} />;
+};
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
