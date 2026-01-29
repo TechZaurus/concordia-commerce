@@ -1,0 +1,180 @@
+# Project Rules for Concordia Commerce
+
+## Architecture Rules
+
+### UI Component Usage
+- ALWAYS import UI components from `@/shared/ui`, never directly from `@heroui/react`
+- This abstraction layer allows future UI library replacement
+- Example: `import { Button } from '@/shared/ui'` ✅
+- Wrong: `import { Button } from '@heroui/react'` ❌
+
+### State Management
+- Use RxDB for data persistence and reactive queries
+- Use Zustand for UI state (form state, modals, etc.)
+- Never use TanStack Query - we've migrated to RxDB
+- Example: `const db = useRxDB()` ✅
+- Example: `const { isOpen, setIsOpen } = useAppStore()` ✅
+
+### Package Management
+- Use Bun for all package operations
+- Never use npm commands
+- bun.lock is the source of truth, package-lock.json should not exist
+
+## Code Organization
+
+### Feature-Sliced Design
+- Features go in `src/features/{feature-name}/`
+- Shared code goes in `src/shared/`
+- App-level code goes in `src/app/`
+
+### Import Order
+1. React/Next.js imports
+2. External libraries
+3. Internal shared imports (`@/shared/`)
+4. Feature imports (relative)
+
+### TypeScript Rules
+- Use strict TypeScript mode
+- Always type function parameters and return values
+- Prefer explicit types over inference for public APIs
+
+## Database Rules (RxDB)
+
+### Storage Configuration
+- RxDB uses Dexie storage with key compression enabled
+- Key compression reduces storage size by ~40%
+- Consider OPFS storage for production (2-3x faster than IndexedDB)
+- Storage wrapper is configured in `src/shared/lib/db.ts`
+
+### Schema Definition
+- All collections must have proper TypeScript interfaces
+- Use meaningful primary keys (string IDs preferred)
+- Include `updatedAt` timestamp for all documents
+
+### Query Patterns
+- Use reactive queries with `$.subscribe()` for real-time updates
+- Use `upsert()` for create-or-update operations
+- Always handle loading states and null cases
+
+### Data Flow
+1. Check if data exists locally first
+2. Fetch from API only if needed
+3. Store in RxDB for offline access
+4. Subscribe to live updates
+
+## Backend Architecture
+
+### gRPC Integration Pattern
+- Python backend (future) will expose gRPC services
+- Next.js API routes act as gRPC → REST gateway
+- Frontend calls Next.js API routes (HTTP/REST)
+- RxDB caches responses locally for offline-first experience
+
+### API Layer Structure
+```
+Browser → Next.js API Routes → gRPC Client → Python Backend
+   ↓
+RxDB (Local Cache)
+```
+
+### MSW Mocking Strategy
+- Mock Next.js API routes, not gRPC layer directly
+- MSW intercepts HTTP requests to `/api/*` endpoints
+- Handlers defined in `src/mocks/handlers.ts`
+- Keep mock data realistic and consistent with proto definitions
+
+### gRPC Client Setup
+- Proto files stored in `protos/` directory
+- gRPC client helpers in `src/shared/lib/grpc-client.ts`
+- Connection URL configured via `GRPC_SERVER_URL` env variable
+- Default: `localhost:50051`
+
+## Development Workflow
+
+### Branch Strategy
+- Main branch for foundation/setup work
+- Feature branches for business logic implementation
+- Branch when adding real features that could break existing functionality
+
+### Environment
+- Use MSW for API mocking in development
+- Keep mock data realistic and consistent
+- Environment variables should be documented in .env.example
+
+## Performance Rules
+
+### React Optimization
+- Use React.memo for expensive components
+- Avoid unnecessary re-renders in RxDB subscriptions
+- Use proper dependency arrays in useEffect
+
+### Bundle Size
+- Import only what you need from libraries
+- Use dynamic imports for large components
+- Monitor bundle size regularly
+
+## Security Rules
+
+### Data Handling
+- Never store sensitive data in localStorage
+- Use RxDB's encryption for sensitive collections if needed
+- Validate all API responses before storing
+
+### API Integration
+- Always handle API errors gracefully
+- Use proper TypeScript types for API responses
+- Implement retry logic for failed requests
+
+## Testing Rules
+
+### Unit Tests
+- Test RxDB queries with in-memory storage
+- Mock external dependencies
+- Test loading and error states
+
+### Integration Tests
+- Test full data flow from API to UI
+- Test offline functionality
+- Test real-time updates
+
+## Style Rules
+
+### Naming Conventions
+- Components: PascalCase
+- Functions/Variables: camelCase
+- Constants: UPPER_SNAKE_CASE
+- Files: kebab-case for utilities, PascalCase for components
+
+### Code Style
+- Use Prettier for consistent formatting
+- Keep functions small and focused
+- Add meaningful comments for complex logic
+
+## Git Rules
+
+### Commit Messages
+- Use conventional commits: `feat:`, `fix:`, `docs:`, etc.
+- Be descriptive but concise
+- Reference issue numbers when applicable
+
+### File Management
+- Delete unused files and imports
+- Keep README updated with current stack
+- Document architectural decisions
+
+## Specific to This Project
+
+### Dashboard Features
+- Stats data is cached in RxDB with 'dashboard' as primary key
+- Use reactive subscriptions for real-time updates
+- Handle offline mode gracefully
+
+### i18n Rules
+- All user-facing text must use i18next
+- Support English (en) and Serbian (sr)
+- Keep translations in sync across languages
+
+### WebSocket Rules
+- Use the shared `useWebSocket` hook
+- Handle connection states properly
+- Clean up subscriptions on unmount

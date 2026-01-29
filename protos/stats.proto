@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package stats;
+
+service StatsService {
+  rpc GetDashboardStats (StatsRequest) returns (StatsResponse);
+}
+
+message StatsRequest {
+  string user_id = 1;
+}
+
+message StatsResponse {
+  double total_sales = 1;
+  int32 active_users = 2;
+  double conversion_rate = 3;
+}

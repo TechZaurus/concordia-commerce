@@ -7,8 +7,8 @@ To be described
 - **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
 - **Language:** TypeScript (Strict mode)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [HeroUI](https://heroui.com/)
-- **State Management:** 
-  - Server: [TanStack Query](https://tanstack.com/query/latest)
+- **State Management:**
+  - Database: [RxDB](https://rxdb.info/) (Local-first reactive database)
   - Client/UI: [Zustand](https://docs.pmnd.rs/zustand)
 - **Internationalization:** [i18next](https://www.i18next.com/)
 - **Mocking:** [MSW (Mock Service Worker)](https://mswjs.io/)
@@ -42,6 +42,7 @@ I'm implementing a strict abstraction layer over HeroUI components in `src/share
 ## 🌍 Internationalization (i18n)
 
 Supported languages:
+
 - English (en) - Default
 - Serbian (sr)
 
@@ -54,30 +55,36 @@ API mocking is enabled in development mode. Handlers are defined in `src/mocks/h
 ## 🚦 Getting Started
 
 1. **Set up environment variables:**
+
    ```bash
    cp .env.example .env
    ```
 
 2. **Install dependencies:**
+
    ```bash
-   npm install
+   bun install
    ```
 
 3. **Run the development server:**
+
    ```bash
-   npm run dev
+   bun run dev
    ```
 
 4. **Build for production:**
    ```bash
-   npm run build
+   bun run build
    ```
 
 ## 🔌 WebSockets
 
 A shared hook `useWebSocket` is available for real-time connections.
+
 ```typescript
 import { useWebSocket } from '@/shared/hooks/useWebSocket';
 
-const { isConnected, lastMessage, sendMessage } = useWebSocket('wss://api.example.com/socket');
+const { isConnected, lastMessage, sendMessage } = useWebSocket(
+  'wss://api.example.com/socket'
+);
 ```
