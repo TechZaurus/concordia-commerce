@@ -18,10 +18,18 @@ export default function Home() {
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">{t('welcome')}</h1>
         <div className="flex gap-2">
-          <Button onPress={() => changeLanguage('en')} size="sm" variant={i18n.language === 'en' ? 'solid' : 'bordered'}>
+          <Button
+            onPress={() => changeLanguage('en')}
+            size="sm"
+            variant={i18n.language === 'en' ? 'solid' : 'bordered'}
+          >
             EN
           </Button>
-          <Button onPress={() => changeLanguage('sr')} size="sm" variant={i18n.language === 'sr' ? 'solid' : 'bordered'}>
+          <Button
+            onPress={() => changeLanguage('sr')}
+            size="sm"
+            variant={i18n.language === 'sr' ? 'solid' : 'bordered'}
+          >
             SR
           </Button>
           <Button onPress={toggleTheme} size="sm" color="primary">

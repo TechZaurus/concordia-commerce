@@ -1,0 +1,26 @@
+# Build outputs
+dist
+build
+.next
+out
+
+# Dependencies
+node_modules
+
+# Nx
+.nx
+
+# Python
+__pycache__
+*.pyc
+venv
+env
+
+# Generated files
+*.tsbuildinfo
+bun.lock
+package-lock.json
+
+# Misc
+.git
+.husky

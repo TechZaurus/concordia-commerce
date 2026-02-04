@@ -10,9 +10,10 @@ interface AppState {
 export const useAppStore = create<AppState>()(
   devtools(
     persist(
-      (set) => ({
+      set => ({
         theme: 'dark',
-        toggleTheme: () => set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
+        toggleTheme: () =>
+          set(state => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
       }),
       {
         name: 'app-storage',

@@ -1,0 +1,21 @@
+{
+  "name": "@concordia/ui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Custom UI component library for Concordia Commerce",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "echo 'Build script placeholder'",
+    "lint": "echo 'Lint script placeholder'"
+  },
+  "peerDependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.9.3"
+  }
+}

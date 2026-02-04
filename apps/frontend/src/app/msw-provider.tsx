@@ -17,7 +17,7 @@ export function MSWProvider({ children }: { children: React.ReactNode }) {
           console.log('Starting MSW Worker...');
           const { worker } = await import('@/mocks/browser');
           await worker.start({
-              onUnhandledRequest: 'bypass',
+            onUnhandledRequest: 'bypass',
           });
           console.log('MSW Worker started successfully');
           setMswReady(true);

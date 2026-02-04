@@ -25,7 +25,7 @@ export const useWebSocket = (url: string) => {
       console.log('WebSocket Disconnected');
     };
 
-    socket.onmessage = (event) => {
+    socket.onmessage = event => {
       try {
         const message = JSON.parse(event.data);
         setLastMessage(message);

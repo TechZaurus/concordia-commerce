@@ -1,5 +1,27 @@
 # Project Rules for Concordia Commerce
 
+## Monorepo Structure
+
+This is an Nx monorepo with the following structure:
+- `apps/frontend/` - Next.js 16 application
+- `apps/backend/` - Flask backend with gRPC support
+- `packages/protos/` - Shared Protocol Buffer definitions
+- `packages/ui/` - Custom component library (placeholder)
+
+### Nx Commands
+- Use `nx run <project>:<target>` for running tasks
+- Use `nx run-many --target=<target> --all` for running tasks across all projects
+- Use `nx graph` to visualize project dependencies
+- Use `nx affected:<target>` to only run tasks on affected projects
+
+### Package Management
+- Use Bun for all package operations in the monorepo
+- Bun supports npm workspaces natively
+- Root `package.json` manages workspace configuration
+- Each project has its own `package.json` for dependencies
+- Dependencies are hoisted to root `node_modules` when possible
+- bun.lock is the source of truth, package-lock.json should not exist
+
 ## Architecture Rules
 
 ### UI Component Usage
@@ -15,17 +37,12 @@
 - Example: `const db = useRxDB()` ✅
 - Example: `const { isOpen, setIsOpen } = useAppStore()` ✅
 
-### Package Management
-- Use Bun for all package operations
-- Never use npm commands
-- bun.lock is the source of truth, package-lock.json should not exist
-
 ## Code Organization
 
 ### Feature-Sliced Design
-- Features go in `src/features/{feature-name}/`
-- Shared code goes in `src/shared/`
-- App-level code goes in `src/app/`
+- Features go in `apps/frontend/src/features/{feature-name}/`
+- Shared code goes in `apps/frontend/src/shared/`
+- App-level code goes in `apps/frontend/src/app/`
 
 ### Import Order
 1. React/Next.js imports
@@ -44,7 +61,7 @@
 - RxDB uses Dexie storage with key compression enabled
 - Key compression reduces storage size by ~40%
 - Consider OPFS storage for production (2-3x faster than IndexedDB)
-- Storage wrapper is configured in `src/shared/lib/db.ts`
+- Storage wrapper is configured in `apps/frontend/src/shared/lib/db.ts`
 
 ### Schema Definition
 - All collections must have proper TypeScript interfaces
@@ -65,14 +82,15 @@
 ## Backend Architecture
 
 ### gRPC Integration Pattern
-- Python backend (future) will expose gRPC services
+- Flask backend in `apps/backend/` exposes REST API (currently mock)
+- Future: gRPC services will be implemented
 - Next.js API routes act as gRPC → REST gateway
 - Frontend calls Next.js API routes (HTTP/REST)
 - RxDB caches responses locally for offline-first experience
 
 ### API Layer Structure
 ```
-Browser → Next.js API Routes → gRPC Client → Python Backend
+Browser → Next.js API Routes → gRPC Client → Flask Backend
    ↓
 RxDB (Local Cache)
 ```
@@ -80,14 +98,20 @@ RxDB (Local Cache)
 ### MSW Mocking Strategy
 - Mock Next.js API routes, not gRPC layer directly
 - MSW intercepts HTTP requests to `/api/*` endpoints
-- Handlers defined in `src/mocks/handlers.ts`
+- Handlers defined in `apps/frontend/src/mocks/handlers.ts`
 - Keep mock data realistic and consistent with proto definitions
 
 ### gRPC Client Setup
-- Proto files stored in `protos/` directory
-- gRPC client helpers in `src/shared/lib/grpc-client.ts`
+- Proto files stored in `packages/protos/` directory
+- gRPC client helpers in `apps/frontend/src/shared/lib/grpc-client.ts`
 - Connection URL configured via `GRPC_SERVER_URL` env variable
 - Default: `localhost:50051`
+
+### Backend Development
+- Flask app located in `apps/backend/app.py`
+- Python dependencies in `apps/backend/requirements.txt`
+- Use virtual environment for Python packages
+- Backend runs on `http://localhost:5000` by default
 
 ## Development Workflow
 
@@ -104,7 +128,7 @@ RxDB (Local Cache)
 ## React 19 Rules
 
 ### React Compiler
-- React Compiler is enabled in `next.config.ts`
+- React Compiler is enabled in `apps/frontend/next.config.ts`
 - DO NOT use `useMemo`, `useCallback`, or `React.memo` manually - the compiler handles memoization automatically
 - Trust the compiler to optimize re-renders
 - Only use manual memoization if you have a proven performance issue that the compiler doesn't handle
@@ -124,7 +148,7 @@ RxDB (Local Cache)
 - Use `useActionState` for managing form state (pending, errors, success)
 - Use `useFormStatus` for granular loading states in submit buttons
 - Use `useOptimistic` for immediate UI updates before server confirmation
-- Keep actions in `src/features/{feature}/actions/` directory
+- Keep actions in `apps/frontend/src/features/{feature}/actions/` directory
 
 ### The `use` API
 - Use `use()` hook to read Context or Promises during render

@@ -1,0 +1,44 @@
+{
+  "name": "@concordia/frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@heroui/react": "^2.8.7",
+    "@heroui/theme": "^2.4.25",
+    "framer-motion": "^12.24.10",
+    "i18next": "^25.7.4",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-resources-to-backend": "^1.2.1",
+    "msw": "^2.12.7",
+    "next": "^16.1.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-i18next": "^16.5.1",
+    "rxdb": "^15.38.1",
+    "rxjs": "^7.8.1",
+    "zustand": "^5.0.9",
+    "@grpc/grpc-js": "^1.10.6",
+    "@grpc/proto-loader": "^0.7.13"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.9.3",
+    "autoprefixer": "^10.4.19",
+    "babel-plugin-react-compiler": "^19.0.0-beta-0dec889-20250207",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.17"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}

@@ -2,7 +2,31 @@
 
 ## Overview
 
-Concordia Commerce is a local-first e-commerce dashboard built with Next.js, RxDB, and designed to integrate with a Python gRPC backend.
+Concordia Commerce is an Nx monorepo containing a local-first e-commerce dashboard (Next.js frontend), Flask backend with gRPC support, and shared packages.
+
+## Monorepo Structure
+
+```
+concordia-commerce/
+├── apps/
+│   ├── frontend/         # Next.js 16 application
+│   │   ├── src/          # Application source code
+│   │   ├── public/       # Static assets
+│   │   └── project.json  # Nx project configuration
+│   └── backend/          # Flask backend
+│       ├── app.py        # Main Flask application
+│       ├── requirements.txt
+│       └── project.json  # Nx project configuration
+├── packages/
+│   ├── protos/           # Shared Protocol Buffer definitions
+│   │   ├── stats.proto
+│   │   └── project.json
+│   └── ui/               # Custom component library (placeholder)
+│       ├── src/
+│       └── project.json
+├── docs/                 # Documentation
+└── nx.json               # Nx workspace configuration
+```
 
 ## Tech Stack
 
@@ -14,11 +38,18 @@ Concordia Commerce is a local-first e-commerce dashboard built with Next.js, RxD
 - **Zustand** - UI state management
 - **TailwindCSS + HeroUI** - Styling
 
-### Backend (Future)
+### Backend
 
-- **Python** - Backend services
-- **gRPC** - High-performance RPC framework
+- **Flask** - Python web framework
+- **Python 3.x** - Backend language
+- **gRPC** - High-performance RPC framework (planned)
 - **Protocol Buffers** - Data serialization
+
+### Monorepo Tools
+
+- **Nx** - Build system and task orchestration
+- **Bun** - Package manager with native workspace support
+- **Shared packages** - Protos and UI library
 
 ## Data Flow Architecture
 
@@ -87,7 +118,7 @@ All RxDB collections follow this pattern:
 
 ### Proto Files
 
-Located in `protos/` directory. Example:
+Located in `packages/protos/` directory. Example:
 
 ```protobuf
 service StatsService {
@@ -141,8 +172,10 @@ http.get('/api/stats', () => {
 
 ## Feature-Sliced Design
 
+Frontend follows Feature-Sliced Design:
+
 ```
-src/
+apps/frontend/src/
 ├── app/                  # Next.js routes and layouts
 ├── features/             # Business features
 │   └── dashboard/
