@@ -1,4 +1,12 @@
 {
   "title": "Concordia Commerce",
-  "welcome": "Dobrodošli na Concordia Commerce Kontrolnu Tablu"
+  "welcome": "Dobrodošli na Concordia Commerce Kontrolnu Tablu",
+  "dashboard": {
+    "overview": "Pregled Kontrolne Table",
+    "loading": "Učitavanje statistike...",
+    "noData": "Statistika nije dostupna",
+    "totalSales": "Ukupna Prodaja",
+    "activeUsers": "Aktivni Korisnici",
+    "conversionRate": "Stopa Konverzije"
+  }
 }

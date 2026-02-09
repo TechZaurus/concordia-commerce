@@ -39,7 +39,9 @@ export default function Home() {
       </header>
 
       <section>
-        <h2 className="text-xl font-semibold mb-4">Dashboard Overview</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          {t('dashboard.overview')}
+        </h2>
         <DashboardStats />
       </section>
     </main>

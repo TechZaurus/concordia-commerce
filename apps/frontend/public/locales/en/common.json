@@ -1,4 +1,12 @@
 {
   "title": "Concordia Commerce",
-  "welcome": "Welcome to Concordia Commerce Dashboard"
+  "welcome": "Welcome to Concordia Commerce Dashboard",
+  "dashboard": {
+    "overview": "Dashboard Overview",
+    "loading": "Loading stats...",
+    "noData": "No stats available",
+    "totalSales": "Total Sales",
+    "activeUsers": "Active Users",
+    "conversionRate": "Conversion Rate"
+  }
 }

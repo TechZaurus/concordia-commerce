@@ -1,63 +1,78 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import type { RxDocument } from 'rxdb';
 import { useRxDB } from '@/shared/lib/RxDBProvider';
 import { Card, CardBody, CardHeader } from '@/shared/ui';
-import type { StatsDocument } from '@/shared/lib/db';
+import { getStats } from '@/shared/api/stats';
+import { useDashboardStore } from '../store/useDashboardStore';
+import type { StatsDocument } from '@/shared/types/db.types';
 
 export const DashboardStats = () => {
+  const { t } = useTranslation('common');
   const db = useRxDB();
-  const [stats, setStats] = useState<StatsDocument | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { stats, isLoading, setStats, setIsLoading } = useDashboardStore();
 
   useEffect(() => {
-    const initStats = async () => {
-      const existingStats = await db.stats.findOne('dashboard').exec();
+    db.stats
+      .findOne('dashboard')
+      .exec()
+      .then((existingStats: RxDocument<StatsDocument> | null) => {
+        if (!existingStats) {
+          return getStats().then(data => {
+            return db.stats.upsert({
+              id: 'dashboard',
+              totalSales: data.totalSales,
+              activeUsers: data.activeUsers,
+              conversionRate: data.conversionRate,
+              updatedAt: Date.now(),
+            });
+          });
+        }
+      })
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((error: Error) => {
+        console.error('Failed to initialize stats:', error);
+        setIsLoading(false);
+      });
 
-      if (!existingStats) {
-        const response = await fetch('/api/stats');
-        const data = await response.json();
-
-        await db.stats.upsert({
-          id: 'dashboard',
-          totalSales: data.totalSales,
-          activeUsers: data.activeUsers,
-          conversionRate: data.conversionRate,
-          updatedAt: Date.now(),
-        });
-      }
-
-      setIsLoading(false);
-    };
-
-    initStats();
-
-    const subscription = db.stats.findOne('dashboard').$.subscribe(doc => {
-      setStats(doc?.toJSON() || null);
-    });
+    const subscription = db.stats
+      .findOne('dashboard')
+      .$.subscribe((doc: RxDocument<StatsDocument> | null) => {
+        setStats(doc?.toJSON() || null);
+      });
 
     return () => subscription.unsubscribe();
-  }, [db]);
+  }, [db, setStats, setIsLoading]);
 
-  if (isLoading) return <div>Loading stats...</div>;
-  if (!stats) return <div>No stats available</div>;
+  if (isLoading) return <div>{t('dashboard.loading')}</div>;
+  if (!stats) return <div>{t('dashboard.noData')}</div>;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
       <Card>
-        <CardHeader className="font-bold">Total Sales</CardHeader>
+        <CardHeader className="font-bold">
+          {t('dashboard.totalSales')}
+        </CardHeader>
         <CardBody>
           <p className="text-2xl">${stats.totalSales.toLocaleString()}</p>
         </CardBody>
       </Card>
       <Card>
-        <CardHeader className="font-bold">Active Users</CardHeader>
+        <CardHeader className="font-bold">
+          {t('dashboard.activeUsers')}
+        </CardHeader>
         <CardBody>
           <p className="text-2xl">{stats.activeUsers.toLocaleString()}</p>
         </CardBody>
       </Card>
       <Card>
-        <CardHeader className="font-bold">Conversion Rate</CardHeader>
+        <CardHeader className="font-bold">
+          {t('dashboard.conversionRate')}
+        </CardHeader>
         <CardBody>
           <p className="text-2xl">{stats.conversionRate}%</p>
         </CardBody>
