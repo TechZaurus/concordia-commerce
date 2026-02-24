@@ -11,7 +11,7 @@ export const useAppStore = create<AppState>()(
   devtools(
     persist(
       set => ({
-        theme: 'dark',
+        theme: 'light',
         toggleTheme: () =>
           set(state => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
       }),

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat, Crimson_Pro } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
+import { ThemeProvider } from './theme-provider';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -27,11 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={`${montserrat.variable} ${crimsonPro.variable} font-body`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <ThemeProvider>{children}</ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
