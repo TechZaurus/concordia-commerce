@@ -137,6 +137,11 @@
 }
 
 body {
-  color: inherit;
-  background: inherit;
+  color: rgb(var(--color-gray-900));
+  background: rgb(var(--color-brand-50));
+}
+
+.dark body {
+  color: rgb(var(--color-gray-50));
+  background: black;
 }
