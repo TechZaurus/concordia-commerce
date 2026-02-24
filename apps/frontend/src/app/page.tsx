@@ -2,7 +2,7 @@
 
 import { useTranslation } from 'react-i18next';
 import { DashboardStats } from '@/features/dashboard';
-import { Button } from '@/shared/ui';
+import { Button, Logo } from '@/shared/ui';
 import { useAppStore } from '@/shared/store/useAppStore';
 
 export default function Home() {
@@ -15,6 +15,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-8">
+      <Logo size="md" className="mb-8" />
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">{t('welcome')}</h1>
         <div className="flex gap-2">
@@ -39,9 +40,7 @@ export default function Home() {
       </header>
 
       <section>
-        <h2 className="text-xl font-semibold mb-4">
-          {t('dashboard.overview')}
-        </h2>
+        <h2 className="text-xl font-heading mb-4">{t('dashboard.overview')}</h2>
         <DashboardStats />
       </section>
     </main>

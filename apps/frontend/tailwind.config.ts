@@ -8,7 +8,12 @@ const config: Config = {
     '../../node_modules/@heroui/react/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        heading: ['var(--font-montserrat)', 'sans-serif'],
+        body: ['var(--font-crimson)', 'serif'],
+      },
+    },
   },
   darkMode: 'class',
   plugins: [heroui() as any],
