@@ -21,5 +21,14 @@ def get_stats():
         "conversionRate": 3.2
     }), 200
 
+@app.route('/api/user/current', methods=['GET'])
+def get_current_user():
+    return jsonify({
+        "id": "user_123",
+        "name": "John",
+        "surname": "Johnson",
+        "profileImageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
+    }), 200
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

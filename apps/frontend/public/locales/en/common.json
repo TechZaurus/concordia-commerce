@@ -1,7 +1,7 @@
 {
   "title": "Concordia Commerce",
   "topbar": {
-    "welcome": "Welcome %user",
+    "welcome": "Welcome {{name}}",
     "toggleMenu": "Toggle menu",
     "searchPlaceholder": "Search...",
     "toggleFullscreen": "Toggle fullscreen",
@@ -27,5 +27,13 @@
     "totalSales": "Total Sales",
     "activeUsers": "Active Users",
     "conversionRate": "Conversion Rate"
+  },
+  "user": {
+    "profile": "Profile",
+    "loading": "Loading user...",
+    "notFound": "User not found",
+    "name": "Name",
+    "surname": "Surname",
+    "fullName": "Full Name"
   }
 }

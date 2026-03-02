@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navbar, NavbarContent, NavbarItem } from '@/shared/ui';
 import { Icon } from '@/shared/ui';
@@ -11,6 +12,9 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { LanguageSelector } from './components/LanguageSelector';
 import { NotificationBadge } from './components/NotificationBadge';
 import { UserMenu } from './components/UserMenu';
+import { useUserStore } from '@/shared/store/useUserStore';
+import { getCurrentUser } from '@/shared/api/user';
+import { getDatabase } from '@/shared/lib/db';
 
 interface TopbarProps {
   onMenuToggle: () => void;
@@ -18,6 +22,34 @@ interface TopbarProps {
 
 export function Topbar({ onMenuToggle }: TopbarProps) {
   const { t } = useTranslation('common');
+  const { user, setUser, setLoading, setError } = useUserStore();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        setLoading(true);
+        const db = await getDatabase();
+
+        const cachedUser = await db.users.findOne('user_123').exec();
+        if (cachedUser) {
+          setUser(cachedUser.toJSON());
+        }
+
+        const userData = await getCurrentUser();
+        await db.users.upsert({
+          ...userData,
+          updatedAt: Date.now(),
+        });
+        setUser(userData);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch user');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [setUser, setLoading, setError]);
 
   return (
     <Navbar
@@ -42,7 +74,11 @@ export function Topbar({ onMenuToggle }: TopbarProps) {
           </Button>
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">
-          <span className="text-sm font-medium">{t('topbar.welcome')}</span>
+          <span className="text-sm font-medium">
+            {user
+              ? t('topbar.welcome', { name: user.name })
+              : t('topbar.welcome', { name: '' })}
+          </span>
         </NavbarItem>
       </NavbarContent>
 

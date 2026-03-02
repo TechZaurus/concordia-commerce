@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package concordia;
+
+message User {
+  string id = 1;
+  string name = 2;
+  string surname = 3;
+  string profile_image_url = 4;
+}
+
+message GetCurrentUserRequest {}
+
+message GetCurrentUserResponse {
+  User user = 1;
+}
+
+service UserService {
+  rpc GetCurrentUser(GetCurrentUserRequest) returns (GetCurrentUserResponse);
+}

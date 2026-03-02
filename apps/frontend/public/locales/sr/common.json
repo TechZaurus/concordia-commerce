@@ -1,7 +1,7 @@
 {
   "title": "Concordia Commerce",
   "topbar": {
-    "welcome": "Dobrodošli %user",
+    "welcome": "Dobrodošli {{name}}",
     "toggleMenu": "Prikaži/sakrij meni",
     "searchPlaceholder": "Pretraži...",
     "toggleFullscreen": "Uključi/isključi ceo ekran",
@@ -27,5 +27,13 @@
     "totalSales": "Ukupna Prodaja",
     "activeUsers": "Aktivni Korisnici",
     "conversionRate": "Stopa Konverzije"
+  },
+  "user": {
+    "profile": "Profil",
+    "loading": "Učitavanje korisnika...",
+    "notFound": "Korisnik nije pronađen",
+    "name": "Ime",
+    "surname": "Prezime",
+    "fullName": "Puno Ime"
   }
 }

@@ -5,6 +5,7 @@ import { RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
 import type { RxStorage } from 'rxdb';
 import type { AppDatabase, DatabaseCollections } from '@/shared/types/db.types';
 import { statsSchema } from './db/schemas/stats.schema';
+import { userSchema } from './db/schemas/user.schema';
 
 if (process.env.NODE_ENV === 'development') {
   addRxPlugin(RxDBDevModePlugin);
@@ -31,6 +32,9 @@ export const getDatabase = async (): Promise<AppDatabase> => {
     await db.addCollections({
       stats: {
         schema: statsSchema,
+      },
+      users: {
+        schema: userSchema,
       },
     });
 

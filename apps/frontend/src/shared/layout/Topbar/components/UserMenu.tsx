@@ -3,13 +3,15 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuPopup, Avatar, Icon } from '@/shared/ui';
+import { useUserStore } from '@/shared/store/useUserStore';
 
 export function UserMenu() {
   const { t } = useTranslation('common');
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUserStore();
 
-  const userName = 'User';
-  const userAvatar = undefined;
+  const userName = user ? `${user.name} ${user.surname}` : 'User';
+  const userAvatar = user?.profileImageUrl;
 
   const handleMenuItemClick = useCallback((action: string) => {
     setIsOpen(false);
