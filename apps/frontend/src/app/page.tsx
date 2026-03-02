@@ -15,7 +15,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-8">
-      <Logo size="md" className="mb-8" />
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">{t('welcome')}</h1>
         <div className="flex gap-2">

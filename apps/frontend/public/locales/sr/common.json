@@ -1,6 +1,18 @@
 {
   "title": "Concordia Commerce",
   "welcome": "Dobrodošli na Concordia Commerce Kontrolnu Tablu",
+  "topbar": {
+    "welcome": "Dobrodošli %user",
+    "toggleMenu": "Prikaži/sakrij meni"
+  },
+  "sidebar": {
+    "dashboard": "Kontrolna Tabla",
+    "customers": "Kupci i Zadržavanje",
+    "orders": "Porudžbine",
+    "products": "Proizvodi",
+    "analytics": "Analitika",
+    "reviews": "Recenzije"
+  },
   "dashboard": {
     "overview": "Pregled Kontrolne Table",
     "loading": "Učitavanje statistike...",

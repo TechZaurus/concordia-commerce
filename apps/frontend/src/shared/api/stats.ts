@@ -11,5 +11,5 @@ export interface StatsResponse {
 }
 
 export const getStats = async (): Promise<StatsResponse> => {
-  return (await api('/stats')) as Promise<StatsResponse>;
+  return (await api('/stats')) as StatsResponse;
 };

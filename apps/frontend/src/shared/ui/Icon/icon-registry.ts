@@ -85,6 +85,21 @@ export const iconRegistry = {
   'more-horizontal': dynamic(() =>
     import('lucide-react').then(mod => ({ default: mod.MoreHorizontal }))
   ),
+  'layout-dashboard': dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.LayoutDashboard }))
+  ),
+  users: dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.Users }))
+  ),
+  'shopping-bag': dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.ShoppingBag }))
+  ),
+  'bar-chart': dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.BarChart3 }))
+  ),
+  star: dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.Star }))
+  ),
 } as const;
 
 export type IconName = keyof typeof iconRegistry;

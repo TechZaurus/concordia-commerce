@@ -17,23 +17,25 @@ const getStorage = (): RxStorage<any, any> => {
 
 let dbPromise: Promise<AppDatabase> | null = null;
 
-export const getDatabase = (): Promise<AppDatabase> => {
+export const getDatabase = async (): Promise<AppDatabase> => {
   if (dbPromise) {
     return dbPromise;
   }
 
-  dbPromise = createRxDatabase<DatabaseCollections>({
-    name: 'concordia_commerce',
-    storage: getStorage(),
-  }).then(db => {
-    return db
-      .addCollections({
-        stats: {
-          schema: statsSchema,
-        },
-      })
-      .then(() => db);
-  });
+  dbPromise = (async () => {
+    const db = await createRxDatabase<DatabaseCollections>({
+      name: 'concordia_commerce',
+      storage: getStorage(),
+    });
+
+    await db.addCollections({
+      stats: {
+        schema: statsSchema,
+      },
+    });
+
+    return db;
+  })();
 
   return dbPromise;
 };

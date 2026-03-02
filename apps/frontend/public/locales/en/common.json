@@ -1,6 +1,18 @@
 {
   "title": "Concordia Commerce",
   "welcome": "Welcome to Concordia Commerce Dashboard",
+  "topbar": {
+    "welcome": "Welcome %user",
+    "toggleMenu": "Toggle menu"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "customers": "Customers & Retention",
+    "orders": "Orders",
+    "products": "Products",
+    "analytics": "Analytics",
+    "reviews": "Reviews"
+  },
   "dashboard": {
     "overview": "Dashboard Overview",
     "loading": "Loading stats...",

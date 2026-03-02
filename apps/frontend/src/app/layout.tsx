@@ -3,6 +3,7 @@ import { Montserrat, Crimson_Pro } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 import { ThemeProvider } from './theme-provider';
+import { AppLayout } from '@/shared/layout';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -33,7 +34,9 @@ export default function RootLayout({
         className={`${montserrat.variable} ${crimsonPro.variable} font-body`}
       >
         <Providers>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <AppLayout>{children}</AppLayout>
+          </ThemeProvider>
         </Providers>
       </body>
     </html>

@@ -15,29 +15,29 @@ export const DashboardStats = () => {
   const { stats, isLoading, setStats, setIsLoading } = useDashboardStore();
 
   useEffect(() => {
-    db.stats
-      .findOne('dashboard')
-      .exec()
-      .then((existingStats: RxDocument<StatsDocument> | null) => {
+    const initStats = async () => {
+      try {
+        const existingStats = await db.stats.findOne('dashboard').exec();
+
         if (!existingStats) {
-          return getStats().then(data => {
-            return db.stats.upsert({
-              id: 'dashboard',
-              totalSales: data.totalSales,
-              activeUsers: data.activeUsers,
-              conversionRate: data.conversionRate,
-              updatedAt: Date.now(),
-            });
+          const data = await getStats();
+          await db.stats.upsert({
+            id: 'dashboard',
+            totalSales: data.totalSales,
+            activeUsers: data.activeUsers,
+            conversionRate: data.conversionRate,
+            updatedAt: Date.now(),
           });
         }
-      })
-      .then(() => {
+
         setIsLoading(false);
-      })
-      .catch((error: Error) => {
+      } catch (error) {
         console.error('Failed to initialize stats:', error);
         setIsLoading(false);
-      });
+      }
+    };
+
+    initStats();
 
     const subscription = db.stats
       .findOne('dashboard')

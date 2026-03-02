@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -20,7 +21,10 @@ export function Logo({
   const sizes = sizeClasses[size];
 
   return (
-    <div className={`flex items-center gap-1 ${className}`}>
+    <Link
+      href="/"
+      className={`flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity ${className}`}
+    >
       <Image
         src="/images/logo_no_text.png"
         alt="Concordia Commerce"
@@ -32,6 +36,6 @@ export function Logo({
           CONCORDIA
         </span>
       )}
-    </div>
+    </Link>
   );
 }

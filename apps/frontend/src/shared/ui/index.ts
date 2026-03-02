@@ -4,4 +4,6 @@ export * from './Card/Card';
 export * from './Icon/Icon';
 export * from './Logo/Logo';
 export * from './Typography/Typography';
+export * from './Navbar/Navbar';
+export * from './Drawer/Drawer';
 export type { IconName } from './Icon/icon-registry';

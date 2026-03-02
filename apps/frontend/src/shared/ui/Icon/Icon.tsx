@@ -4,6 +4,8 @@ import { LucideProps } from 'lucide-react';
 import { Suspense } from 'react';
 import { iconRegistry, IconName } from './icon-registry';
 
+export type { IconName };
+
 export interface IconProps extends Omit<LucideProps, 'ref'> {
   name: IconName;
   fallback?: React.ReactNode;
