@@ -100,6 +100,33 @@ export const iconRegistry = {
   star: dynamic(() =>
     import('lucide-react').then(mod => ({ default: mod.Star }))
   ),
+  maximize: dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.Maximize }))
+  ),
+  minimize: dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.Minimize }))
+  ),
+  sun: dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.Sun }))
+  ),
+  moon: dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.Moon }))
+  ),
+  bell: dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.Bell }))
+  ),
+  'user-circle': dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.UserCircle }))
+  ),
+  'log-out': dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.LogOut }))
+  ),
+  'life-buoy': dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.LifeBuoy }))
+  ),
+  globe: dynamic(() =>
+    import('lucide-react').then(mod => ({ default: mod.Globe }))
+  ),
 } as const;
 
 export type IconName = keyof typeof iconRegistry;

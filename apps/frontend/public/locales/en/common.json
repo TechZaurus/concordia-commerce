@@ -1,9 +1,16 @@
 {
   "title": "Concordia Commerce",
-  "welcome": "Welcome to Concordia Commerce Dashboard",
   "topbar": {
     "welcome": "Welcome %user",
-    "toggleMenu": "Toggle menu"
+    "toggleMenu": "Toggle menu",
+    "searchPlaceholder": "Search...",
+    "toggleFullscreen": "Toggle fullscreen",
+    "toggleTheme": "Toggle theme",
+    "notifications": "Notifications",
+    "userMenu": "User menu",
+    "myAccount": "My Account",
+    "support": "Support",
+    "logout": "Logout"
   },
   "sidebar": {
     "dashboard": "Dashboard",

@@ -1,9 +1,16 @@
 {
   "title": "Concordia Commerce",
-  "welcome": "Dobrodošli na Concordia Commerce Kontrolnu Tablu",
   "topbar": {
     "welcome": "Dobrodošli %user",
-    "toggleMenu": "Prikaži/sakrij meni"
+    "toggleMenu": "Prikaži/sakrij meni",
+    "searchPlaceholder": "Pretraži...",
+    "toggleFullscreen": "Uključi/isključi ceo ekran",
+    "toggleTheme": "Promeni temu",
+    "notifications": "Obaveštenja",
+    "userMenu": "Korisnički meni",
+    "myAccount": "Moj Nalog",
+    "support": "Podrška",
+    "logout": "Odjavi se"
   },
   "sidebar": {
     "dashboard": "Kontrolna Tabla",

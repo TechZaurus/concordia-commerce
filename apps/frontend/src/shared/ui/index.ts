@@ -6,4 +6,7 @@ export * from './Logo/Logo';
 export * from './Typography/Typography';
 export * from './Navbar/Navbar';
 export * from './Drawer/Drawer';
+export * from './MenuPopup/MenuPopup';
+export * from './Avatar/Avatar';
+export * from './Badge/Badge';
 export type { IconName } from './Icon/icon-registry';
