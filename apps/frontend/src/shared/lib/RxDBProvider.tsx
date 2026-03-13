@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { getDatabase } from './db';
-import type { AppDatabase } from './db';
+import type { AppDatabase } from '@/shared/types/db.types';
 
 const RxDBContext = React.createContext<AppDatabase | null>(null);
 
@@ -22,7 +22,11 @@ export function RxDBProvider({ children }: RxDBProviderProps) {
   const [db, setDb] = React.useState<AppDatabase | null>(null);
 
   React.useEffect(() => {
-    getDatabase().then(setDb);
+    const initDb = async () => {
+      const database = await getDatabase();
+      setDb(database);
+    };
+    initDb();
   }, []);
 
   if (!db) {

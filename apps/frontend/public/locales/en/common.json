@@ -1,4 +1,40 @@
 {
   "title": "Concordia Commerce",
-  "welcome": "Welcome to Concordia Commerce Dashboard"
+  "topbar": {
+    "welcome": "Welcome {{name}}",
+    "toggleMenu": "Toggle menu",
+    "searchPlaceholder": "Search...",
+    "toggleFullscreen": "Toggle fullscreen",
+    "toggleTheme": "Toggle theme",
+    "notifications": "Notifications",
+    "userMenu": "User menu",
+    "user": "User",
+    "myAccount": "My Account",
+    "support": "Support",
+    "logout": "Logout"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "customers": "Customers & Retention",
+    "orders": "Orders",
+    "products": "Products",
+    "analytics": "Analytics",
+    "reviews": "Reviews"
+  },
+  "dashboard": {
+    "overview": "Dashboard Overview",
+    "loading": "Loading stats...",
+    "noData": "No stats available",
+    "totalSales": "Total Sales",
+    "activeUsers": "Active Users",
+    "conversionRate": "Conversion Rate"
+  },
+  "user": {
+    "profile": "Profile",
+    "loading": "Loading user...",
+    "notFound": "User not found",
+    "name": "Name",
+    "surname": "Surname",
+    "fullName": "Full Name"
+  }
 }

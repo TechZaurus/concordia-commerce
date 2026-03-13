@@ -32,10 +32,13 @@ This is an Nx monorepo with the following structure:
 
 ### State Management
 - Use RxDB for data persistence and reactive queries
-- Use Zustand for UI state (form state, modals, etc.)
+- Use Zustand stores instead of `useState` wherever possible
+- Create feature-specific stores in `apps/frontend/src/features/{feature}/store/`
 - Never use TanStack Query - we've migrated to RxDB
 - Example: `const db = useRxDB()` ✅
 - Example: `const { isOpen, setIsOpen } = useAppStore()` ✅
+- Example: `const { stats, setStats } = useDashboardStore()` ✅
+- Wrong: `const [stats, setStats] = useState()` ❌
 
 ## Code Organization
 
@@ -43,6 +46,23 @@ This is an Nx monorepo with the following structure:
 - Features go in `apps/frontend/src/features/{feature-name}/`
 - Shared code goes in `apps/frontend/src/shared/`
 - App-level code goes in `apps/frontend/src/app/`
+
+### API Layer
+- Use `up-fetch` library for ALL API calls
+- Create reusable API functions in `apps/frontend/src/shared/api/` for shared endpoints
+- Create feature-specific API functions in `apps/frontend/src/features/{feature}/api/`
+- NEVER use raw `fetch()` directly
+- Example: `import { getStats } from '@/shared/api/stats'` ✅
+- Wrong: `await fetch('/api/stats')` ❌
+
+### Internationalization (i18n)
+- ALWAYS add translations for any user-facing text
+- Use react-i18next with translation keys
+- NEVER hardcode user-facing strings
+- Support English (en) and Serbian (sr)
+- Translation files: `apps/frontend/public/locales/{lang}/common.json`
+- Example: `{t('dashboard.loading')}` ✅
+- Wrong: `<div>Loading...</div>` ❌
 
 ### Import Order
 1. React/Next.js imports
@@ -54,6 +74,17 @@ This is an Nx monorepo with the following structure:
 - Use strict TypeScript mode
 - Always type function parameters and return values
 - Prefer explicit types over inference for public APIs
+- Define entity types in `apps/frontend/src/shared/types/` or feature-specific `types.d.ts`
+- Keep type definitions separate from implementation
+- Use `.d.ts` files for pure type definitions
+
+### Async/Await vs Promises
+- Prefer async/await for better readability and error handling
+- Use try/catch blocks for error handling
+- Example: `const data = await api('/stats')` ✅
+- Avoid: `return api('/stats').then(data => data)` ❌
+- Use Promise.all() for parallel operations: `await Promise.all([getStats(), getUsers()])`
+- Use Promises for fire-and-forget: `api('/log').then(updateCache)`
 
 ## Database Rules (RxDB)
 
@@ -67,6 +98,10 @@ This is an Nx monorepo with the following structure:
 - All collections must have proper TypeScript interfaces
 - Use meaningful primary keys (string IDs preferred)
 - Include `updatedAt` timestamp for all documents
+- Store schemas in separate files: `apps/frontend/src/shared/lib/db/schemas/{collection}.schema.ts`
+- Store collection types in: `apps/frontend/src/shared/types/db.types.d.ts`
+- Keep `db.ts` focused on database initialization only
+- Import schemas from their respective files to avoid god objects
 
 ### Query Patterns
 - Use reactive queries with `$.subscribe()` for real-time updates

@@ -2,20 +2,146 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Brand Colors */
+    --color-brand-50: 250 246 243;
+    --color-brand-100: 244 235 227;
+    --color-brand-200: 232 213 197;
+    --color-brand-300: 217 184 157;
+    --color-brand-400: 200 148 115;
+    --color-brand-500: 158 98 64;
+    --color-brand-600: 138 84 56;
+    --color-brand-700: 114 68 46;
+    --color-brand-800: 94 56 39;
+    --color-brand-900: 78 47 34;
+    --color-brand-950: 42 24 18;
+
+    /* Secondary Colors */
+    --color-secondary-50: 253 249 245;
+    --color-secondary-100: 250 242 232;
+    --color-secondary-200: 245 227 205;
+    --color-secondary-300: 237 205 168;
+    --color-secondary-400: 227 179 142;
+    --color-secondary-500: 222 164 126;
+    --color-secondary-600: 200 138 99;
+    --color-secondary-700: 168 111 77;
+    --color-secondary-800: 137 90 65;
+    --color-secondary-900: 111 74 55;
+    --color-secondary-950: 60 38 29;
+
+    /* Accent Colors */
+    --color-accent-50: 254 243 242;
+    --color-accent-100: 253 228 225;
+    --color-accent-200: 251 205 200;
+    --color-accent-300: 247 170 162;
+    --color-accent-400: 241 123 109;
+    --color-accent-500: 205 70 49;
+    --color-accent-600: 185 61 42;
+    --color-accent-700: 155 49 34;
+    --color-accent-800: 128 44 32;
+    --color-accent-900: 107 42 33;
+    --color-accent-950: 57 18 13;
+
+    /* Neutral Colors */
+    --color-neutral-50: 254 253 251;
+    --color-neutral-100: 253 251 247;
+    --color-neutral-200: 251 248 240;
+    --color-neutral-300: 248 242 220;
+    --color-neutral-400: 243 233 195;
+    --color-neutral-500: 234 217 161;
+    --color-neutral-600: 217 192 122;
+    --color-neutral-700: 196 164 91;
+    --color-neutral-800: 163 134 75;
+    --color-neutral-900: 135 111 64;
+    --color-neutral-950: 74 59 33;
+
+    /* Info Colors */
+    --color-info-50: 243 248 251;
+    --color-info-100: 228 239 246;
+    --color-info-200: 207 226 238;
+    --color-info-300: 173 206 226;
+    --color-info-400: 129 173 200;
+    --color-info-500: 106 155 186;
+    --color-info-600: 90 132 163;
+    --color-info-700: 76 109 133;
+    --color-info-800: 67 92 111;
+    --color-info-900: 58 77 93;
+    --color-info-950: 39 50 62;
+
+    /* Gray Scale */
+    --color-gray-50: 249 248 247;
+    --color-gray-100: 241 239 236;
+    --color-gray-200: 228 224 218;
+    --color-gray-300: 209 202 192;
+    --color-gray-400: 184 174 160;
+    --color-gray-500: 163 150 137;
+    --color-gray-600: 141 126 111;
+    --color-gray-700: 117 105 93;
+    --color-gray-800: 98 89 79;
+    --color-gray-900: 82 75 68;
+    --color-gray-950: 44 40 35;
+
+    /* Semantic Colors - Light Mode (namespaced to avoid Hero UI conflicts) */
+    --theme-primary: var(--color-brand-500);
+    --theme-primary-foreground: 255 255 255;
+    --theme-secondary: var(--color-secondary-500);
+    --theme-secondary-foreground: 255 255 255;
+    --theme-accent: var(--color-accent-500);
+    --theme-accent-foreground: 255 255 255;
+    --theme-info: var(--color-info-400);
+    --theme-info-foreground: 255 255 255;
+    --theme-success: 34 197 94;
+    --theme-success-foreground: 255 255 255;
+    --theme-warning: 245 158 11;
+    --theme-warning-foreground: 255 255 255;
+    --theme-danger: var(--color-accent-500);
+    --theme-danger-foreground: 255 255 255;
+
+    --theme-background: 255 255 255;
+    --theme-foreground: var(--color-gray-900);
+    --theme-background-secondary: var(--color-neutral-50);
+    --theme-background-tertiary: var(--color-neutral-100);
+    --theme-border: var(--color-gray-200);
+    --theme-border-hover: var(--color-gray-300);
+    --theme-muted: var(--color-gray-100);
+    --theme-muted-foreground: var(--color-gray-600);
+  }
+
+  .dark {
+    /* Semantic Colors - Dark Mode */
+    --theme-primary: var(--color-brand-400);
+    --theme-primary-foreground: var(--color-gray-950);
+    --theme-secondary: var(--color-secondary-400);
+    --theme-secondary-foreground: var(--color-gray-950);
+    --theme-accent: var(--color-accent-400);
+    --theme-accent-foreground: 255 255 255;
+    --theme-info: var(--color-info-400);
+    --theme-info-foreground: var(--color-gray-950);
+    --theme-success: 34 197 94;
+    --theme-success-foreground: 255 255 255;
+    --theme-warning: 245 158 11;
+    --theme-warning-foreground: 255 255 255;
+    --theme-danger: var(--color-accent-400);
+    --theme-danger-foreground: 255 255 255;
+
+    --theme-background: var(--color-gray-950);
+    --theme-foreground: var(--color-gray-50);
+    --theme-background-secondary: var(--color-gray-900);
+    --theme-background-tertiary: var(--color-gray-800);
+    --theme-border: var(--color-gray-800);
+    --theme-border-hover: var(--color-gray-700);
+    --theme-muted: var(--color-gray-800);
+    --theme-muted-foreground: var(--color-gray-400);
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  color: rgb(var(--color-gray-900));
+  background: rgb(var(--color-brand-50));
+}
+
+.dark body {
+  color: rgb(var(--color-gray-50));
+  background: black;
 }

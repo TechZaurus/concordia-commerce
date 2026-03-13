@@ -1,4 +1,40 @@
 {
   "title": "Concordia Commerce",
-  "welcome": "Dobrodošli na Concordia Commerce Kontrolnu Tablu"
+  "topbar": {
+    "welcome": "Dobrodošli {{name}}",
+    "toggleMenu": "Prikaži/sakrij meni",
+    "searchPlaceholder": "Pretraži...",
+    "toggleFullscreen": "Uključi/isključi ceo ekran",
+    "toggleTheme": "Promeni temu",
+    "notifications": "Obaveštenja",
+    "userMenu": "Korisnički meni",
+    "user": "Korisnik",
+    "myAccount": "Moj Nalog",
+    "support": "Podrška",
+    "logout": "Odjavi se"
+  },
+  "sidebar": {
+    "dashboard": "Kontrolna Tabla",
+    "customers": "Kupci i Zadržavanje",
+    "orders": "Porudžbine",
+    "products": "Proizvodi",
+    "analytics": "Analitika",
+    "reviews": "Recenzije"
+  },
+  "dashboard": {
+    "overview": "Pregled Kontrolne Table",
+    "loading": "Učitavanje statistike...",
+    "noData": "Statistika nije dostupna",
+    "totalSales": "Ukupna Prodaja",
+    "activeUsers": "Aktivni Korisnici",
+    "conversionRate": "Stopa Konverzije"
+  },
+  "user": {
+    "profile": "Profil",
+    "loading": "Učitavanje korisnika...",
+    "notFound": "Korisnik nije pronađen",
+    "name": "Ime",
+    "surname": "Prezime",
+    "fullName": "Puno Ime"
+  }
 }
