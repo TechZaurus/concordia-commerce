@@ -10,7 +10,7 @@ export function UserMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUserStore();
 
-  const userName = user ? `${user.name} ${user.surname}` : 'User';
+  const userName = user ? `${user.name} ${user.surname}` : t('topbar.user');
   const userAvatar = user?.profileImageUrl;
 
   const handleMenuItemClick = useCallback((action: string) => {
